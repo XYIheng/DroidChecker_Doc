@@ -43,25 +43,28 @@ Let's write the property in DroidChecker.
 
 
 .. code-block:: Python
-  :linenos:
 
     @precondition(lambda self: d(resourceId="it.feio.android.omninotes:id/menu_tag").exists() and
                    "#" in d(resourceId="it.feio.android.omninotes:id/detail_content").info["text"]
                    )
     @rule()
     def rule_remove_tag_from_note_shouldnot_affect_content(self):
-        
+        # get the text from the note's content
         origin_content = d(resourceId="it.feio.android.omninotes:id/detail_content").info["text"]
+        # click to open the tag list
         d(resourceId="it.feio.android.omninotes:id/menu_tag").click()
+        # select a tag to remove
         selected_tag = random.choice(d(className="android.widget.CheckBox",checked=True))
         select_tag_name = "#"+ selected_tag.right(resourceId="it.feio.android.omninotes:id/md_title").info["text"].split(" ")[0]
         selected_tag.click()
+        # click to uncheck the selected tag
         d(text="OK").click()
+        # get the updated content after removing the tag
         new_content = d(resourceId="it.feio.android.omninotes:id/detail_content").info["text"].strip().replace("Content", "")
+        # get the expected content after removing the tag
         origin_content_exlude_tag = origin_content.replace(select_tag_name, "").strip()
-
-        assert not d(textContains=select_tag_name).exists()           
-        assert new_content == origin_content_exlude_tag
+        # the tag should be removed in the content and the updated content should be the same as the expected content
+        assert not d(textContains=select_tag_name).exists() and new_content == origin_content_exlude_tag
 
 The ``@precondition`` decorator defines when the property should be tested.
 Here, ``d(resourceId="it.feio.android.omninotes:id/menu_tag").exists()`` checks if the tag button exists and 
@@ -74,10 +77,9 @@ Here, the interaction scenario is to remove a tag.
 The postcondition is defined by the ``assert`` statement.
 Here, we check if the tag is removed and content remains unchanged.
 
-That's it! This is a property that should be held by the app `Transistor <https://f-droid.org/packages/org.y20k.transistor/>`_.
+That's it! This is a property that should be held by `OmniNotes <https://github.com/federicoiosue/Omni-Notes/>`_.
 
-As we need to add stations to the app before deleting them.
-These stations needed to be added manually before testing the property.
+Also, we can add a function to set up the app's initial state before testing the property.
 
 To do this, we can use the following code:
 
@@ -85,16 +87,13 @@ To do this, we can use the following code:
 
     @initialize()
     def set_up(self):
-        for _ in range(3):
-            d(text="Add new station").click()
-            station_name_prefix = ["bbc", "new", "swi","chn"]
-            selected_station_name_prefix = random.choice(station_name_prefix)
-            d(resourceId="org.y20k.transistor:id/search_src_text").set_text(selected_station_name_prefix)
-            time.sleep(3)
-            random.choice(d(resourceId="org.y20k.transistor:id/station_name")).click()
-            d(text="Add").click()
+        for _ in range(5):
+            d(resourceId="it.feio.android.omninotes:id/next").click()
+        d(resourceId="it.feio.android.omninotes:id/done").click()
+        if d(text="OK").exists():
+            d(text="OK").click()
 
-Here, we add three stations to the app before testing the property.
+Here, the code can automatically pass the welcome page in `OmniNotes <https://github.com/federicoiosue/Omni-Notes/>`_.
 Note that we use the ``@initialize`` decorator to define the setup function.
 Then, Droidcheker will execute the setup function before testing the property.
 
@@ -110,46 +109,60 @@ To test this property, we need to put the property in a class, which inherits fr
 
 .. code:: Python
     
-    import random
     from droidchecker.main import *
 
-    class Test(AndroidCheck):
+class Test(AndroidCheck):
+    
 
-        @initialize()
-        def set_up(self):
-            for _ in range(3):
-                d(text="Add new station").click()
-                station_name_prefix = ["bbc", "new", "swi","chn"]
-                selected_station_name_prefix = random.choice(station_name_prefix)
-                d(resourceId="org.y20k.transistor:id/search_src_text").set_text(selected_station_name_prefix)
-                time.sleep(3)
-                random.choice(d(resourceId="org.y20k.transistor:id/station_name")).click()
-                d(text="Add").click()
-
-        @precondition(
-            lambda self: d(resourceId="org.y20k.transistor:id/station_name").exists() and 
-            not d(text="Find Station").exists()
-        )
-        @rule()
-        def delete_should_work(self):
-
-            selected_station = random.choice(d(resourceId="org.y20k.transistor:id/station_name"))
-            station_name = selected_station.get_text()
-            selected_station.swipe("left")
-            d(text="Remove").click()
-
-            assert not d(text=station_name).exists(), "delete station still exists"
+    @initialize()
+    def set_up(self):
+        for _ in range(5):
+            d(resourceId="it.feio.android.omninotes:id/next").click()
+        d(resourceId="it.feio.android.omninotes:id/done").click()
+        if d(text="OK").exists():
+            d(text="OK").click()
+    
+    @precondition(lambda self: d(resourceId="it.feio.android.omninotes:id/menu_tag").exists() and
+                   "#" in d(resourceId="it.feio.android.omninotes:id/detail_content").info["text"]
+                   )
+    @rule()
+    def rule_remove_tag_from_note_shouldnot_affect_content(self):
+        # get the text from the note's content
+        origin_content = d(resourceId="it.feio.android.omninotes:id/detail_content").info["text"]
+        # click to open the tag list
+        d(resourceId="it.feio.android.omninotes:id/menu_tag").click()
+        # select a tag to remove
+        selected_tag = random.choice(d(className="android.widget.CheckBox",checked=True))
+        select_tag_name = "#"+ selected_tag.right(resourceId="it.feio.android.omninotes:id/md_title").info["text"].split(" ")[0]
+        selected_tag.click()
+        # click to uncheck the selected tag
+        d(text="OK").click()
+        # get the updated content after removing the tag
+        new_content = d(resourceId="it.feio.android.omninotes:id/detail_content").info["text"].strip().replace("Content", "")
+        # get the expected content after removing the tag
+        origin_content_exlude_tag = origin_content.replace(select_tag_name, "").strip()
+        # the tag should be removed in the content and the updated content should be the same as the expected content
+        assert not d(textContains=select_tag_name).exists() and new_content == origin_content_exlude_tag
 
 Here, we put the property in the ``Test`` class, which inherits from the ``AndroidCheck`` class.
 
-We put this file transistor_239.py in the ``example`` directory
+We put this file omninotes_634.py in the ``example`` directory
 Then, you can test the property by running the following command:
 
 .. code:: console
 
-    droidchecker -f transistor_239.py -a transistor.apk -t 300
+    droidchecker -f omninotes_634.py -a omninotes.apk
 
 That's it! You have learned how to write a property and test it with DroidChecker.
 
-When we test this property, we quickly find a new bug that violates this property.
+When we test this property, we quickly find two new bugs that violates this property.
+Then, we write the corresponding bug reports and submit them to the app's developers.
+Both of them are fixed by app developers.
+
+You can see the bug reports:
+
+1. `Bug Report: Note tag cannot be removed <https://github.com/federicoiosue/Omni-Notes/issues/942>`_.
+
+
+2. `Bug Report: Deleting One Tag in a Note Affects Another Tag in the Same Note <https://github.com/federicoiosue/Omni-Notes/issues/949>`_.
 
