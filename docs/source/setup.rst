@@ -1,13 +1,13 @@
 Setup
 ==============
 
-Requirements:
+**Requirements**:
 
 - Python 3.8+
 
 - Android SDK
 
-You need to create an emulator before running DroidChecker. See [this link](https://stackoverflow.com/questions/43275238/how-to-set-system-images-path-when-creating-an-android-avd) for how to create avd using [avdmanager](https://developer.android.com/studio/command-line/avdmanager).
+You need to create an emulator before running DroidChecker. See `this link <https://stackoverflow.com/questions/43275238/how-to-set-system-images-path-when-creating-an-android-avd>`_ for how to create avd using `avdmanager <https://developer.android.com/studio/command-line/avdmanager>`_.
 The following sample command will help you create an emulator, which will help you start using DroidChecker quickly：
 
 .. code-block:: console
