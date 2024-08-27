@@ -23,40 +23,44 @@ Let's start with a simple example on how to get a property, write the property i
 Example 1
 ---------
 
-This example will show how to get a property from the app `Transistor <https://f-droid.org/packages/org.y20k.transistor/>`_
+This example will show how to get a property from the app `OmniNotes <https://github.com/federicoiosue/Omni-Notes/>`_
 
-`Transistor <https://f-droid.org/packages/org.y20k.transistor/>`_ is an app for listening to radio stations over the internet.
+`OmniNotes <https://github.com/federicoiosue/Omni-Notes/>`_ is an app for taking and managing notes.
 
-Here is a bug report from the app `#239 <https://codeberg.org/y20k/transistor/issues/239>`_, where a user complained that he cannot delete a radio station.
+Here is a bug report from the app `#634 <https://github.com/federicoiosue/Omni-Notes/issues/634>`_, where a user complained that when he removed a tag, it removed other tags that sharing the same prefix.
 
 Then, from this bug report, we can get a property:
 
-After deleting a radio station, the radio station should be deleted.
+After removing the tag, the tag should be successfully removed and the note content should remain unchanged.
 
 From the bug report, we can get a property as follows:
 
-- **P (Precondition)**: The app has at least one radio station.
-- **I (Interaction scenario)**: Delete the radio station.
-- **Q (Postcondition)**: The radio station is deleted.
+- **P (Precondition)**: The tag exists.
+- **I (Interaction scenario)**: Remove the note tag from the tag list.
+- **Q (Postcondition)**: The tag is removed and the note content remains unchanged.
 
 Let's write the property in DroidChecker.
 
 .. code:: Python
+    :linenos:
 
-    @precondition(
-         lambda self: d(resourceId="org.y20k.transistor:id/station_name").exists() 
-    )
+    @precondition(lambda self: d(resourceId="it.feio.android.omninotes:id/menu_tag").exists() and
+                   "#" in d(resourceId="it.feio.android.omninotes:id/detail_content").info["text"]
+                   )
     @rule()
-    def delete_should_work(self):
-        # random select a station
-        selected_station = random.choice(d(resourceId="org.y20k.transistor:id/station_name"))
-        # get the station name
-        station_name = selected_station.get_text()
-        # delete the station
-        selected_station.swipe("left")
-        d(text="Remove").click()
-        # check if the station is deleted
-        assert not d(text=station_name).exists(), "delete station still exists"
+    def rule_remove_tag_from_note_shouldnot_affect_content(self):
+        
+        origin_content = d(resourceId="it.feio.android.omninotes:id/detail_content").info["text"]
+        d(resourceId="it.feio.android.omninotes:id/menu_tag").click()
+        selected_tag = random.choice(d(className="android.widget.CheckBox",checked=True))
+        select_tag_name = "#"+ selected_tag.right(resourceId="it.feio.android.omninotes:id/md_title").info["text"].split(" ")[0]
+        selected_tag.click()
+        d(text="OK").click()
+        new_content = d(resourceId="it.feio.android.omninotes:id/detail_content").info["text"].strip().replace("Content", "")
+        origin_content_exlude_tag = origin_content.replace(select_tag_name, "").strip()
+
+        assert not d(textContains=select_tag_name).exists()           
+        assert new_content == origin_content_exlude_tag
 
 The ``@precondition`` decorator defines when the property should be tested.
 Here, ``d(resourceId="org.y20k.transistor:id/station_name").exists()`` checks if the radio station exists, 
