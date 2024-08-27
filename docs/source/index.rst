@@ -11,3 +11,4 @@ Contents
    installation
    setup
    example
+   tutorial
