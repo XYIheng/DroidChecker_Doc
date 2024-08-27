@@ -44,16 +44,31 @@ Let's write the property in DroidChecker.
 .. code:: Python
 
     @precondition(
-         lambda self: d(resourceId="org.y20k.transistor:id/station_name").exists() and 
-         not d(text="Find Station").exists()
+         lambda self: d(resourceId="org.y20k.transistor:id/station_name").exists() 
     )
     @rule()
     def delete_should_work(self):
+        # random select a station
         selected_station = random.choice(d(resourceId="org.y20k.transistor:id/station_name"))
+        # get the station name
         station_name = selected_station.get_text()
+        # delete the station
         selected_station.swipe("left")
         d(text="Remove").click()
+        # check if the station is deleted
         assert not d(text=station_name).exists(), "delete station still exists"
+
+The ``@precondition`` decorator defines when the property should be tested.
+Here, ``d(resourceId="org.y20k.transistor:id/station_name").exists()`` checks if the radio station exists, 
+where ``"org.y20k.transistor:id/station_name"`` is the resource id of the radio station.
+
+The ``@rule`` decorator defines the property.
+Here, the interaction scenario is to delete the radio station.
+
+The postcondition is defined by the ``assert`` statement.
+Here, we check if the radio station is deleted by checking if the station name still exists.
+
+That's it! This is a property that should be held by the app `Transistor <https://f-droid.org/packages/org.y20k.transistor/>`_.
 
 As we need to add stations to the app before deleting them.
 These stations needed to be added manually before testing the property.
@@ -80,6 +95,12 @@ Then, Droidcheker will execute the setup function before testing the property.
 .. note::
 
     This feature can be used to set up the app's initial state before testing the property. 
-    For example, use this feature to pass the login process, add data to the app, etc.
+    For example, use this feature to pass the login, add data to the app, etc.
     If you don't need to set up the app's initial state, you can skip it.
+
+Here, we have already learned how to write a property in DroidChecker.
+
+To test this property, we need to put the property in a class, which inherits from the ``AndroidCheck`` class.
+
+
 
