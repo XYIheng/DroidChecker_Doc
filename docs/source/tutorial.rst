@@ -63,14 +63,15 @@ Let's write the property in DroidChecker.
         assert new_content == origin_content_exlude_tag
 
 The ``@precondition`` decorator defines when the property should be tested.
-Here, ``d(resourceId="org.y20k.transistor:id/station_name").exists()`` checks if the radio station exists, 
-where ``"org.y20k.transistor:id/station_name"`` is the resource id of the radio station.
+Here, ``d(resourceId="it.feio.android.omninotes:id/menu_tag").exists()`` checks if the tag button exists and 
+``"#" in d(resourceId="it.feio.android.omninotes:id/detail_content").info["text"]`` checks if the note content contains a tag. 
+
 
 The ``@rule`` decorator defines the property.
-Here, the interaction scenario is to delete the radio station.
+Here, the interaction scenario is to remove a tag.
 
 The postcondition is defined by the ``assert`` statement.
-Here, we check if the radio station is deleted by checking if the station name still exists.
+Here, we check if the tag is removed and content remains unchanged.
 
 That's it! This is a property that should be held by the app `Transistor <https://f-droid.org/packages/org.y20k.transistor/>`_.
 
