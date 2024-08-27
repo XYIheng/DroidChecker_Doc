@@ -102,5 +102,48 @@ Here, we have already learned how to write a property in DroidChecker.
 
 To test this property, we need to put the property in a class, which inherits from the ``AndroidCheck`` class.
 
+.. code:: Python
+    
+    import random
+    from droidchecker.main import *
 
+    class Test(AndroidCheck):
+
+        @initialize()
+        def set_up(self):
+            for _ in range(3):
+                d(text="Add new station").click()
+                station_name_prefix = ["bbc", "new", "swi","chn"]
+                selected_station_name_prefix = random.choice(station_name_prefix)
+                d(resourceId="org.y20k.transistor:id/search_src_text").set_text(selected_station_name_prefix)
+                time.sleep(3)
+                random.choice(d(resourceId="org.y20k.transistor:id/station_name")).click()
+                d(text="Add").click()
+
+        @precondition(
+            lambda self: d(resourceId="org.y20k.transistor:id/station_name").exists() and 
+            not d(text="Find Station").exists()
+        )
+        @rule()
+        def delete_should_work(self):
+
+            selected_station = random.choice(d(resourceId="org.y20k.transistor:id/station_name"))
+            station_name = selected_station.get_text()
+            selected_station.swipe("left")
+            d(text="Remove").click()
+
+            assert not d(text=station_name).exists(), "delete station still exists"
+
+Here, we put the property in the ``Test`` class, which inherits from the ``AndroidCheck`` class.
+
+We put this file transistor_239.py in the ``example`` directory
+Then, you can test the property by running the following command:
+
+.. code:: console
+
+    droidchecker -f transistor_239.py -a transistor.apk -t 300
+
+That's it! You have learned how to write a property and test it with DroidChecker.
+
+When we test this property, we quickly find a new bug that violates this property.
 
