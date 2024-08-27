@@ -144,10 +144,10 @@ To test this property, we need to put the property in a class, which inherits fr
             # the tag should be removed in the content and the updated content should be the same as the expected content
             assert not d(textContains=select_tag_name).exists() and new_content == origin_content_exlude_tag
 
-Here, we put the property in the ``Test`` class, which inherits from the ``AndroidCheck`` class.
+Here, we write the property in the ``Test`` class, which inherits from the ``AndroidCheck`` class.
 
-We put this file omninotes_634.py in the ``example`` directory
-Then, you can test the property by running the following command:
+We put this file omninotes_634.py in the ``example`` directory.
+You can test the property by running the following command:
 
 .. code:: console
 
