@@ -41,6 +41,15 @@ From the bug report, we can get a property as follows:
 
 Let's write the property in DroidChecker.
 
+.. code-block:: RST
+  :linenos:
+
+  .. code-block:: javascript
+    :linenos:
+
+    code . . .
+
+
 .. code-block:: Python
   :linenos:
 
