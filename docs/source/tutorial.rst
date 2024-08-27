@@ -41,8 +41,8 @@ From the bug report, we can get a property as follows:
 
 Let's write the property in DroidChecker.
 
-.. code:: Python
-    :linenos:
+.. code-block:: Python
+  :linenos:
 
     @precondition(lambda self: d(resourceId="it.feio.android.omninotes:id/menu_tag").exists() and
                    "#" in d(resourceId="it.feio.android.omninotes:id/detail_content").info["text"]
