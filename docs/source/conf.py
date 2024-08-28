@@ -3,7 +3,7 @@
 # -- Project information
 
 project = 'DroidChecker'
-copyright = '2021, Yiheng Xiong, Ting Su, Jue Wang, Jingling Sun, Geguang Pu, Zhendong Su'
+copyright = '2024, Yiheng Xiong, Ting Su, Jue Wang, Jingling Sun, Geguang Pu, Zhendong Su'
 author = 'Yiheng Xiong, Ting Su, Jue Wang, Jingling Sun, Geguang Pu, Zhendong Su'
 
 release = '0.1'
