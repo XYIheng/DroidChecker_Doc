@@ -12,3 +12,4 @@ Contents
    setup
    example
    tutorial
+   api
