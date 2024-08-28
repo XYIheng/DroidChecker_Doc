@@ -13,3 +13,4 @@ Contents
    example
    tutorial
    api
+   bugs
