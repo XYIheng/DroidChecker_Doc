@@ -100,3 +100,24 @@ Suppose we have several properties in different files, we can run them together 
 .. code-block:: console
 
    droidchecker -f [property_file_name1] [property_file_name2] -a [apk_file_name]
+
+Optional arguments
+....................
+
+DroidChecker provides the following options. please consult ``droidchecker -h`` for a full list.
+
+``-f``: The test files that contain the properties.
+
+``-a --apk``: The apk file of the app under test.
+
+``-d --device_serial``: The serial number of the device used in the test. (use 'adb devices' to find)
+
+``-o --output``: The output directory of the execution results.
+
+``-p --policy``: The policy name of the exploration. ("random" or "mutate")
+
+``-t --timeout``: The maximum testing time.
+
+``-n``: Every n events, then restart the app.
+
+``-m --main_path``: the file of the main path.
