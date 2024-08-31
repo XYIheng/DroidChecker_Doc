@@ -24,6 +24,7 @@ Contents
 .. toctree::
 
    installation
+   androidSDK
    setup
    example
    tutorial
