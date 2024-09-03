@@ -1,4 +1,4 @@
-Android SDK Environment
+How to setup Android SDK Environment
 ==============
 |To take Linux as an example.
 
@@ -88,17 +88,3 @@ Android SDK Environment
 
             sudo adduser $USER kvm
             sudo chown $USER -R /dev/kvm
-
-    b. emulator: INFO: QtLogger.cpp:68: Fatal: This application failed to start because no Qt platform plugin could be initialized. Reinstalling the application may fix this problem.
-
-        .. image:: ../images/issues2.png
-            :align: center
-
-        |
-
-        Solution: Remove ``--no-headless``.
-
-        .. code-block:: bash
-
-            python3 themis.py --no-headless --avd Android7.1 --apk ../ActivityDiary/ActivityDiary-1.1.8-debug-#118.apk --time 10m -o ../monkey-results/ --monkey
-
