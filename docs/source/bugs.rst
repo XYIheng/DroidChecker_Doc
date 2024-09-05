@@ -1,7 +1,7 @@
 Bug List
 =========
 
-**Bug list found by DroidChecker**
+**Bug list found by Kea**
 
 * OmniNotes: 
     `#942  <https://github.com/federicoiosue/Omni-Notes/issues/942>`_, 

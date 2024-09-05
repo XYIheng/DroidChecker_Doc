@@ -6,7 +6,7 @@ If you have downloaded our project and configured the environment, you only need
 .. code-block:: console
 
     cd example
-    droidchecker -f example.py -a omninotes.apk -t 100
+    kea -f example.py -a omninotes.apk -t 100
 
 
 That's it! 

@@ -99,12 +99,12 @@ Suppose we have several properties in different files, we can run them together 
 
 .. code-block:: console
 
-   droidchecker -f [property_file_name1] [property_file_name2] -a [apk_file_name]
+   kea -f [property_file_name1] [property_file_name2] -a [apk_file_name]
 
 Optional arguments
 ....................
 
-DroidChecker provides the following options. please consult ``droidchecker -h`` for a full list.
+Kea provides the following options. please consult ``kea -h`` for a full list.
 
 ``-f``: The test files that contain the properties.
 

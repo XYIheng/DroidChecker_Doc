@@ -1,7 +1,7 @@
 How to write properties
 ========================
 
-In this tutorial, we will learn how to write properties and test them with DroidChecker.
+In this tutorial, we will learn how to write properties and test them with Kea.
 
 In mobile apps, a property defines the expected behavior of the app. 
 Then, if the app violates the property, it means a bug is found.
@@ -10,7 +10,7 @@ At high level, a property consists of three key components **<P, I, Q>**, where 
 (2) *I* is an interaction scenario which defines how to perform the app functionality, 
 and (3) *Q* is a postcondition which defines the expected behavior.
 
-In DroidChecker, a property is defined by applying the ``@rule`` decorator on a function. 
+In Kea, a property is defined by applying the ``@rule`` decorator on a function. 
 
 To define the precondition of the property, you can use the ``@precondition`` decorator on the  ``rule``-decorated function.
 
@@ -18,7 +18,7 @@ The postcondition is defined by the ``assert`` statement in the ``rule``-decorat
 
 For mobile apps, we can get properties from multiple sources, such as the app's specification, the app's documentation, the app's test cases, the app's bug reports, etc.
 
-Let's start with a simple example on how to get a property, write the property in DroidChecker, and test the property by DroidChecker.
+Let's start with a simple example on how to get a property, write the property in Kea, and test the property by Kea.
 
 Example 1
 ---------
@@ -39,7 +39,7 @@ From the bug report, we can get a property as follows:
 - **I (Interaction scenario)**: Remove the note tag from the tag list.
 - **Q (Postcondition)**: The tag is removed and the note content remains unchanged.
 
-Let's write the property in DroidChecker.
+Let's write the property in Kea.
 
 
 .. code-block:: Python
@@ -103,13 +103,13 @@ Then, Droidcheker will execute the setup function before testing the property.
     For example, use this feature to pass the login, add data to the app, etc.
     If you don't need to set up the app's initial state, you can skip it.
 
-Here, we have already learned how to write a property in DroidChecker.
+Here, we have already learned how to write a property in Kea.
 
 To test this property, we need to put the property in a class, which inherits from the ``AndroidCheck`` class.
 
 .. code:: Python
     
-    from droidchecker.main import *
+    from kea.main import *
 
     class Test(AndroidCheck):
         
@@ -151,9 +151,9 @@ You can test the property by running the following command:
 
 .. code:: console
 
-    droidchecker -f omninotes_634.py -a omninotes.apk
+    kea -f omninotes_634.py -a omninotes.apk
 
-That's it! You have learned how to write a property and test it with DroidChecker.
+That's it! You have learned how to write a property and test it with Kea.
 
 When we test this property, we quickly find two new bugs that violates this property.
 Then, we write the corresponding bug reports and submit them to the app's developers.

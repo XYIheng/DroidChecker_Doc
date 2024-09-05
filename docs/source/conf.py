@@ -2,7 +2,7 @@
 
 # -- Project information
 
-project = 'DroidChecker'
+project = 'Kea'
 copyright = '2024, Yiheng Xiong, Ting Su, Jue Wang, Jingling Sun, Geguang Pu, Zhendong Su'
 author = 'Yiheng Xiong, Ting Su, Jue Wang, Jingling Sun, Geguang Pu, Zhendong Su'
 
