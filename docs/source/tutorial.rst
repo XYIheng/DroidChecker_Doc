@@ -95,13 +95,39 @@ To do this, we can use the following code:
 
 Here, the code can automatically pass the welcome page in `OmniNotes <https://github.com/federicoiosue/Omni-Notes/>`_.
 Note that we use the ``@initialize`` decorator to define the setup function.
-Then, Droidcheker will execute the setup function before testing the property.
+Then, Kea will execute the setup function before testing the property.
 
 .. note::
 
     This feature can be used to set up the app's initial state before testing the property. 
     For example, use this feature to pass the login, add data to the app, etc.
     If you don't need to set up the app's initial state, you can skip it.
+
+Moreover, if you want to use the main path guided exploration strategy, you should set a main path function.
+
+To do this, we can use the following code:
+
+.. code:: Python
+
+     @main_path()
+        def test_main(self):
+            d(resourceId="it.feio.android.omninotes:id/fab_expand_menu_button").long_click()
+            d(resourceId="it.feio.android.omninotes:id/detail_content").click()
+            d(resourceId="it.feio.android.omninotes:id/detail_content").set_text("read a book #Tag1")
+            d(description="drawer open").click()
+            d(resourceId="it.feio.android.omninotes:id/note_content").click()
+            d(resourceId="it.feio.android.omninotes:id/menu_tag").click()
+            d(resourceId="it.feio.android.omninotes:id/md_control").click()
+            d(resourceId="it.feio.android.omninotes:id/md_buttonDefaultPositive").click()
+
+The code above can guide Kea to create a note with the content of "read a book #Tag1" in the omninotes.
+And then, and removes the tag “Tag1” of this note.
+
+.. note::
+
+    In the part of the definition of the main path, you can only use UI operation commands to complete the definition;
+    The function cannot contain other Python statements such as for loops.
+    We believe this approach is sufficient to implement the functionality of the main path.
 
 Here, we have already learned how to write a property in Kea.
 
