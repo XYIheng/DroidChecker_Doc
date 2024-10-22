@@ -1,15 +1,15 @@
 Stateful Testing
 ========================
 
-With Kea’s stateful testing, you can use ``Bundle`` to store some data
-when you want to search for some data manipulation error. In other words,
-Kea tries to generate not just data but entire tests. When you define a set of basic data manipulation actions
+With Kea’s stateful testing, we can use ``Bundle`` to store some data
+when we want to search for some data manipulation error. In other words,
+Kea tries to generate not just data but entire tests. When we define a set of basic data manipulation actions
 that can be combined, and then Kea will attempt to discover sequences of those actions that lead to a failure.
 
 |Here we reference `Hypothesis's Stateful Testing <https://hypothesis.readthedocs.io/en/latest/stateful.html>`_.
 
-In Kea, you can use stateful testing when you write some properties.
-You just need to call the class method of ``Kea`` to instantiate the ``Bundle``.
+In Kea, we can use stateful testing when we write some properties.
+We just need to call the class method of ``Kea`` to instantiate the ``Bundle``.
 Just like following codes:
 
 .. code:: Python
@@ -53,7 +53,7 @@ This function will return a list of tests of current Bundle object.
 
 * get_random_test(test_len: int = 10)
 
-This function will randomly generate a test and return. So you can call it before using the ``add`` and ``update`` function.
+This function will randomly generate a test and return. So we can call it before using the ``add`` and ``update`` function.
 
 .. code-block:: Python
 
@@ -63,14 +63,14 @@ This function will randomly generate a test and return. So you can call it befor
 * get_random_data()
 
 This function will randomly select a test from the existing tests in the current Bundle object.
-So you can call it before using the ``delete`` and ``update`` function.
+So we can call it before using the ``delete`` and ``update`` function.
 
 .. code-block:: Python
 
     file_name = self._files.get_random_data()
     self._files.delete(selected_file_name)
 
-Here give you a complete example to show how to use Kea's stateful testing when you define property.
+Here is a complete example to show how to use Kea's stateful testing when we define property.
 
 .. code-block:: Python
 
@@ -152,5 +152,5 @@ Here give you a complete example to show how to use Kea's stateful testing when 
 .. note::
 
     The  above method can use for both single property file and multiple property files.
-    If you only want to use stateful testing for single one, you can use ``_files = Bundle("files")`` directly
+    If we only want to use stateful testing for single one, we can use ``_files = Bundle("files")`` directly
     to instantiate Bundle instead of using class method of Kea ``_files = Kea.set_bundle("files")``.

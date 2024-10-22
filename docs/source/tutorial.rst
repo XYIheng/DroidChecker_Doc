@@ -127,7 +127,7 @@ And then removes the tag “Tag1” of this note.
 
     In the part of the definition of the main path, you can only use UI operation commands to complete the definition;
     The function cannot contain other Python statements such as for loops.
-    We believe this approach is sufficient to implement the functionality of the main path.
+    But we believe this approach is sufficient to implement the functionality of the main path.
 
 Here, we have already learned how to write a property in Kea.
 
