@@ -28,5 +28,6 @@ Contents
    setup
    example
    tutorial
+   stateful testing
    api
    bugs

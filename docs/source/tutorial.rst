@@ -121,7 +121,7 @@ To do this, we can use the following code:
             d(resourceId="it.feio.android.omninotes:id/md_buttonDefaultPositive").click()
 
 The code above can guide Kea to create a note with the content of "read a book #Tag1" in the omninotes.
-And then, and removes the tag “Tag1” of this note.
+And then removes the tag “Tag1” of this note.
 
 .. note::
 
