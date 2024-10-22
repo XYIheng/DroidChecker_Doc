@@ -71,7 +71,7 @@ So we can call it before using the ``delete`` and ``update`` function.
     self._files.delete(selected_file_name)
 
 Here is a complete example to show how to use Kea's stateful testing when we define property.
-This example will show how to use stateful testing in the app `Amaze<https://github.com/TeamAmaze/AmazeFileManager>`_, it is a file management app,
+This example will show how to use stateful testing in the app `Amaze <https://github.com/TeamAmaze/AmazeFileManager>`_, it is a file management app,
 allows users to manipulate files or folders on Android devices. These properties are defined for testing whether data manipulation of
 the file system have some errors. Stateful testing is essential in this situation, we use stateful testing to store all the folders created by Kea,
 and can manipulate them along the whole testing process.
