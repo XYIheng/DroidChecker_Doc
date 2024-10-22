@@ -19,25 +19,25 @@ Just like following codes:
 
 The Bundle class contains the following functions:
 
-* add(test: str)
+* add(value: str)
 
-Add a new test to the current Bundle object.
+Add a new value to the current Bundle object.
 
 .. code-block:: Python
 
     self._files.add(file_name)
 
-* delete(test: str)
+* delete(value: str)
 
-Delete a test from the current Bundle object.
+Delete a value from the current Bundle object.
 
 .. code-block:: Python
 
     self._files.delete(selected_file_name)
 
-* update(test: str, value: str)
+* update(value: str, new_value: str)
 
-Update the test from ``test`` to ``value``
+Update the value from ``value`` to ``new_value``
 
 .. code-block:: Python
 
@@ -51,18 +51,18 @@ This function will return a list of tests of current Bundle object.
 
     self._files.get_all_data()
 
-* get_random_test(test_len: int = 10)
+* get_random_value(value_len: int = 10)
 
-This function will randomly generate a test and return. So we can call it before using the ``add`` and ``update`` function.
+This function will randomly generate a value and return. So we can call it before using the ``add`` and ``update`` function.
 
 .. code-block:: Python
 
-    file_name = self._files.get_random_test()
+    file_name = self._files.get_random_value()
     self._files.add(file_name)
 
 * get_random_data()
 
-This function will randomly select a test from the existing tests in the current Bundle object.
+This function will randomly select a value from the existing tests in the current Bundle object.
 So we can call it before using the ``delete`` and ``update`` function.
 
 .. code-block:: Python
@@ -71,6 +71,10 @@ So we can call it before using the ``delete`` and ``update`` function.
     self._files.delete(selected_file_name)
 
 Here is a complete example to show how to use Kea's stateful testing when we define property.
+This example will show how to use stateful testing in the app `Amaze<https://github.com/TeamAmaze/AmazeFileManager>`_, it is a file management app,
+allows users to manipulate files or folders on Android devices. These properties are defined for testing whether data manipulation of
+the file system have some errors. Stateful testing is essential in this situation, we use stateful testing to store all the folders created by Kea,
+and can manipulate them along the whole testing process.
 
 .. code-block:: Python
 
