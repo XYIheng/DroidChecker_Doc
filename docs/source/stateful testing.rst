@@ -62,7 +62,7 @@ This function will randomly generate a value and return. So we can call it befor
 
 * get_random_data()
 
-This function will randomly select a value from the existing tests in the current Bundle object.
+This function will randomly select a value from the existing values in the current Bundle object.
 So we can call it before using the ``delete`` and ``update`` function.
 
 .. code-block:: Python
