@@ -119,5 +119,3 @@ Kea provides the following options. please consult ``kea -h`` for a full list.
 ``-t --timeout``: The maximum testing time.
 
 ``-n``: Every n events, then restart the app.
-
-``-m --main_path``: the file of the main path.
